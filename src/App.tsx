@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Menu, X } from "lucide-react";
 import { coeData } from "./data/coe";
 import { matchesQuery } from "./lib/coe-helpers";
@@ -6,8 +6,13 @@ import MapView from "./components/MapView";
 import Sidebar from "./components/Sidebar";
 import InfoPanel from "./components/InfoPanel";
 
+function getInitialSelectedId(): string | null {
+  const id = new URLSearchParams(window.location.search).get("coe");
+  return id && coeData.some((c) => c.id === id) ? id : null;
+}
+
 export default function App() {
-  const [selectedId, setSelectedId] = useState<string | null>(null);
+  const [selectedId, setSelectedId] = useState<string | null>(getInitialSelectedId);
   const [query, setQuery] = useState("");
   const [stateFilter, setStateFilter] = useState("");
   const [drawerOpen, setDrawerOpen] = useState(false);
@@ -22,6 +27,16 @@ export default function App() {
   );
 
   const selected = coeData.find((c) => c.id === selectedId) ?? null;
+
+  useEffect(() => {
+    const url = new URL(window.location.href);
+    if (selectedId) {
+      url.searchParams.set("coe", selectedId);
+    } else {
+      url.searchParams.delete("coe");
+    }
+    window.history.replaceState({}, "", url);
+  }, [selectedId]);
 
   function handleSelect(id: string) {
     setSelectedId(id);

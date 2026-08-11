@@ -1,10 +1,10 @@
-# COE Map
+# CoE Map
 
 An interactive Google Maps view of India's rare-disease Centers of Excellence (COEs), built with React, TypeScript, and Vite.
 
 ## Features
 
-- Full-screen Google Map centered on India with a pin per COE
+- Full-screen Google Map centered on India with a pin per CoE
 - Sidebar with free-text search (name/city/state) and a state filter
 - Clicking a marker or a sidebar row pans/zooms the map and opens an animated detail panel (address, contacts, staff-directory link, notes)
 - Responsive layout: fixed sidebar on desktop, toggleable drawer on mobile
@@ -19,7 +19,7 @@ An interactive Google Maps view of India's rare-disease Centers of Excellence (C
 
 ## Data
 
-[COE.csv](COE.csv) is the source data. It's hand-transcribed into [`src/data/coe.ts`](src/data/coe.ts) with researched latitude/longitude per institution, since the source has no coordinates of its own.
+[CoE.csv](CoE.csv) is the source data. It's hand-transcribed into [`src/data/coe.ts`](src/data/coe.ts) with researched latitude/longitude per institution, since the source has no coordinates of its own.
 
 ## Setup
 

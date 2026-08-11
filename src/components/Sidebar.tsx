@@ -27,9 +27,9 @@ export default function Sidebar({
   return (
     <div className="flex h-full w-full flex-col bg-white">
       <div className="border-b border-slate-200 p-4">
-        <h1 className="text-lg font-semibold text-slate-900">Rare Disease COEs</h1>
+        <h1 className="text-lg font-semibold text-slate-900">Rare Disease CoEs</h1>
         <p className="text-sm text-slate-500">
-          {filtered.length} of {coes.length} centers of excellence, India
+          {filtered.length} of {coes.length} Centers of Excellence, India
         </p>
 
         <div className="relative mt-3">
@@ -67,14 +67,12 @@ export default function Sidebar({
               <button
                 type="button"
                 onClick={() => onSelect(coe.id)}
-                className={`flex w-full items-start gap-3 border-b border-slate-100 px-4 py-3 text-left transition-colors hover:bg-brand-50 ${
-                  coe.id === selectedId ? "bg-brand-50" : ""
-                }`}
+                className={`flex w-full items-start gap-3 border-b border-slate-100 px-4 py-3 text-left transition-colors hover:bg-brand-50 ${coe.id === selectedId ? "bg-brand-50" : ""
+                  }`}
               >
                 <MapPin
-                  className={`mt-0.5 h-4 w-4 shrink-0 ${
-                    coe.id === selectedId ? "text-brand-600" : "text-slate-400"
-                  }`}
+                  className={`mt-0.5 h-4 w-4 shrink-0 ${coe.id === selectedId ? "text-brand-600" : "text-slate-400"
+                    }`}
                 />
                 <span>
                   <span className="block text-sm font-medium text-slate-900">{coe.name}</span>

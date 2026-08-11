@@ -1,4 +1,5 @@
-import { APIProvider, Map } from "@vis.gl/react-google-maps";
+import { useEffect } from "react";
+import { APIProvider, Map, useMap } from "@vis.gl/react-google-maps";
 import type { Coe } from "../types";
 import MarkerPin from "./MarkerPin";
 
@@ -8,6 +9,18 @@ interface MapViewProps {
   coes: Coe[];
   selectedId: string | null;
   onSelect: (id: string) => void;
+}
+
+function FlyToSelected({ selected }: { selected: Coe | null }) {
+  const map = useMap();
+
+  useEffect(() => {
+    if (!map || !selected) return;
+    map.panTo({ lat: selected.lat, lng: selected.lng });
+    if ((map.getZoom() ?? 0) < 9) map.setZoom(9);
+  }, [map, selected]);
+
+  return null;
 }
 
 export default function MapView({ coes, selectedId, onSelect }: MapViewProps) {
@@ -30,12 +43,11 @@ export default function MapView({ coes, selectedId, onSelect }: MapViewProps) {
         mapId="DEMO_MAP_ID"
         defaultCenter={INDIA_CENTER}
         defaultZoom={5}
-        center={selected ? { lat: selected.lat, lng: selected.lng } : undefined}
-        zoom={selected ? 9 : undefined}
         gestureHandling="greedy"
         disableDefaultUI={false}
         className="h-full w-full"
       >
+        <FlyToSelected selected={selected} />
         {coes.map((coe) => (
           <MarkerPin
             key={coe.id}

@@ -1,7 +1,7 @@
 import type { Coe } from "../types";
 
 /**
- * Sourced from COE.csv. Coordinates were researched per-institution
+ * Sourced from CoE.csv. Coordinates were researched per-institution
  * (city/campus level, not runtime-geocoded) since the source data has no
  * lat/lng of its own.
  */
@@ -26,8 +26,8 @@ export const coeData: Coe[] = [
     lng: 85.0466,
     staff: "https://www.aiims.edu/index.php/en/2014-12-19-11-51-43/staff",
     contacts:
-      'Hospital: "+(91)-612-2451070"\nAdministration: "(0612)-2451006"\nEmail: admin[at]aiimspatna[dot]org',
-    address: "Phulwarisharif, Patna, Bihar-801507, India",
+      "Hospital: +(91)-612-2451070\nAdministration: (0612)-2451006\nEmail: admin[at]aiimspatna[dot]org",
+    address: "AIIMS Patna, Phulwari Sharif, Patna, Bihar 801507, India",
   },
   {
     id: "aiims-delhi",
@@ -37,7 +37,7 @@ export const coeData: Coe[] = [
     lat: 28.5665,
     lng: 77.21,
     staff: "https://www.aiims.edu/index.php/en/2014-12-19-11-51-43/staff",
-    address: "Ansari Nagar East, New Delhi, Delhi 110029, India",
+    address: "All India Institute Of Medical Sciences Delhi, Ansari Nagar East, New Delhi, Delhi 110029, India",
   },
   {
     id: "mamc-delhi",
@@ -81,7 +81,7 @@ export const coeData: Coe[] = [
     lat: 23.2122,
     lng: 77.4584,
     staff: "https://www.aiimsbhopal.edu.in/",
-    contacts: '"(+91)-0755-298260"',
+    contacts: "(+91)-0755-298260",
     address: "Saket Nagar, Pipalia Pende Khan, Bhopal, Madhya Pradesh 462020, India",
     other: "Website Doesn't Work",
   },

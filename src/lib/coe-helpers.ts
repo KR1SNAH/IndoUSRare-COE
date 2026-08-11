@@ -19,6 +19,51 @@ export function getContactText(coe: Coe): string | undefined {
   return undefined;
 }
 
+/** Combining name + address (rather than address alone) lets Google Maps
+ * match the actual named place/business entity instead of a bare point. */
+function placeQuery(coe: Coe): string {
+  return encodeURIComponent(`${coe.name}, ${coe.address}`);
+}
+
+export function getDirectionsUrl(coe: Coe): string {
+  return `https://www.google.com/maps/dir/?api=1&destination=${placeQuery(coe)}`;
+}
+
+export function getMapsPlaceUrl(coe: Coe): string {
+  return `https://www.google.com/maps/search/?api=1&query=${placeQuery(coe)}`;
+}
+
+const EMAIL_OBFUSCATED_RE = /([a-zA-Z0-9._-]+)\[at\]([a-zA-Z0-9._-]+)\[dot\]([a-zA-Z]{2,})/gi;
+const TOKEN_RE = /[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}|\+?\(?\d[\d\s().-]{6,}\d/g;
+
+export interface ContactToken {
+  text: string;
+  href?: string;
+}
+
+/** Splits a line of free-text contact info into plain-text and
+ * clickable (mailto:/tel:) segments, so the UI can render each part. */
+export function linkifyContactLine(rawLine: string): ContactToken[] {
+  const line = rawLine.replace(EMAIL_OBFUSCATED_RE, "$1@$2.$3");
+  const tokens: ContactToken[] = [];
+  let lastIndex = 0;
+
+  for (const match of line.matchAll(TOKEN_RE)) {
+    const text = match[0];
+    const index = match.index ?? 0;
+    if (index > lastIndex) tokens.push({ text: line.slice(lastIndex, index) });
+    tokens.push(
+      text.includes("@")
+        ? { text, href: `mailto:${text}` }
+        : { text, href: `tel:${text.replace(/[^\d+]/g, "")}` },
+    );
+    lastIndex = index + text.length;
+  }
+  if (lastIndex < line.length) tokens.push({ text: line.slice(lastIndex) });
+
+  return tokens;
+}
+
 export function matchesQuery(coe: Coe, query: string): boolean {
   const q = query.trim().toLowerCase();
   if (!q) return true;
